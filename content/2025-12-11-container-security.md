@@ -10,7 +10,7 @@ key_task: "container-sec-1"
 tool_concept: "Trivy, Docker, Image Scanning"
 status: "Published"
 links:
-  github: ""
+  github: "github"
   medium: ""
   hashnode: ""
   devto: ""
