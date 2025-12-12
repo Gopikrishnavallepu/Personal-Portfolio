@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{{ title if title else 'Personal DevSecOps Blog' }}</title>
-    <link rel="stylesheet" href="/static/style.css">
+      <link rel="stylesheet" href="{{ base_url | default('/Personal-Portfolio') }}/static/style.css">
     <script>
       // Dark mode toggle
       if (localStorage.getItem('darkmode') === 'true') {
@@ -16,15 +16,15 @@
     <header class="site-header">
       <div class="wrap">
         <div class="header-top">
-          <h1 class="site-title"><a href="/">DevSecOps Blog</a></h1>
+            <h1 class="site-title"><a href="{{ base_url | default('/Personal-Portfolio') }}/">DevSecOps Blog</a></h1>
           <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
             <span class="theme-icon">🌙</span>
           </button>
         </div>
         <p class="site-sub">Portfolio, learning journal and project tracker</p>
         <nav class="site-nav">
-          <a href="/">Blog</a>
-          <a href="/resume">Resume</a>
+            <a href="{{ base_url | default('/Personal-Portfolio') }}/">Blog</a>
+            <a href="{{ base_url | default('/Personal-Portfolio') }}/resume">Resume</a>
         </nav>
       </div>
     </header>

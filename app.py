@@ -11,6 +11,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
 RESUME_FILE = os.path.join(BASE_DIR, 'resume.md')
 
+# GitHub Pages subdirectory: change this to match your repo name
+GITHUB_PAGES_BASE = os.environ.get('GITHUB_PAGES_BASE', '/Personal-Portfolio')
+
 app = Flask(__name__)
 
 
@@ -83,7 +86,7 @@ def load_posts(include_drafts=False):
 @app.route('/')
 def index():
     posts = load_posts()
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', posts=posts, base_url=GITHUB_PAGES_BASE)
 
 
 @app.route('/posts/<slug>')
@@ -91,7 +94,7 @@ def post(slug):
     posts = load_posts(include_drafts=True)
     for p in posts:
         if p['slug'] == slug:
-            return render_template('post.html', post=p)
+            return render_template('post.html', post=p, base_url=GITHUB_PAGES_BASE)
     abort(404)
 
 
@@ -100,8 +103,8 @@ def resume():
     if os.path.exists(RESUME_FILE):
         fm = frontmatter.load(RESUME_FILE)
         html = markdown.markdown(fm.content, extensions=['fenced_code', 'codehilite', 'tables'])
-        return render_template('resume.html', resume_html=html)
-    return render_template('resume.html', resume_html="<p>Resume not available yet.</p>")
+        return render_template('resume.html', resume_html=html, base_url=GITHUB_PAGES_BASE)
+    return render_template('resume.html', resume_html="<p>Resume not available yet.</p>", base_url=GITHUB_PAGES_BASE)
 
 
 if __name__ == '__main__':

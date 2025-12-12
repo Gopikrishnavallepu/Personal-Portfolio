@@ -31,7 +31,7 @@
           </div>
           <p class="excerpt">{{ post.excerpt }}</p>
           <div class="post-footer">
-            <a class="read-more" href="/posts/{{ post.slug }}">Read More →</a>
+            <a class="read-more" href="{{ base_url | default('/Personal-Portfolio') }}/posts/{{ post.slug }}">Read More →</a>
           </div>
         </article>
       {% else %}
@@ -42,17 +42,17 @@
 
   <script>
     function filterPosts(category) {
-      const posts = document.querySelectorAll('.post');
       const buttons = document.querySelectorAll('.filter-tag');
-      
+      const posts = document.querySelectorAll('.post');
+
       buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      posts.forEach(post => {
-        if (category === 'all' || post.dataset.category === category) {
-          post.style.display = '';
+      if (typeof event !== 'undefined' && event.target) event.target.classList.add('active');
+
+      posts.forEach(p => {
+        if (category === 'all' || p.dataset.category === category) {
+          p.style.display = '';
         } else {
-          post.style.display = 'none';
+          p.style.display = 'none';
         }
       });
     }
