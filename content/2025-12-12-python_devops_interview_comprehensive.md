@@ -1,3 +1,26 @@
+---
+date: "2025-12-11T14:30:00+00:00"
+month: "December"
+week: 1
+topic: "Python"
+category: "Python "
+focus: "Python DevOps Interview Q&A Guide"
+activity: "Interview Q&A Guide"
+key_task: "Python interview QA"
+tool_concept: "Python"
+status: "Published"
+links:
+  github: "github"
+  medium: ""
+  hashnode: ""
+  devto: ""
+  substack: ""
+  notion: ""
+  gitbook: ""
+---
+
+
+
 # Comprehensive Python DevOps Interview Q&A Guide
 **Parts 1–7 + DevSecOps + Cloud + Behavioral Focus**
 
