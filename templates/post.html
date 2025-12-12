@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <article class="post-full">
+    <header class="post-header-full">
+      <h1>{{ post.title }}</h1>
+      <div class="post-meta-full">
+        <time datetime="{{ post.meta.date }}">{{ post.meta.date or 'No date' }}</time>
+        {% if post.meta.category %}
+          <span class="chip category">{{ post.meta.category }}</span>
+        {% endif %}
+        {% if post.meta.focus %}
+          <span class="chip focus">{{ post.meta.focus }}</span>
+        {% endif %}
+      </div>
+    </header>
+
+    <div class="post-body">
+      {{ post.content_html | safe }}
+    </div>
+
+    <!-- Tracker fields as metadata cards -->
+    <aside class="tracker-fields">
+      <h3>Learning Tracker</h3>
+      <div class="fields-grid">
+        {% if post.meta.activity %}
+          <div class="field-card">
+            <h4>Activity</h4>
+            <p>{{ post.meta.activity }}</p>
+          </div>
+        {% endif %}
+        {% if post.meta.tool_concept %}
+          <div class="field-card">
+            <h4>Key Concept/Tool</h4>
+            <p>{{ post.meta.tool_concept }}</p>
+          </div>
+        {% endif %}
+        {% if post.meta.status %}
+          <div class="field-card">
+            <h4>Status</h4>
+            <p><span class="status-badge">{{ post.meta.status }}</span></p>
+          </div>
+        {% endif %}
+      </div>
+    </aside>
+
+    <!-- External links -->
+    {% if post.meta.links and (post.meta.links.github or post.meta.links.medium or post.meta.links.hashnode or post.meta.links.devto or post.meta.links.substack or post.meta.links.notion or post.meta.links.gitbook) %}
+      <aside class="external-links">
+        <h3>External Links</h3>
+        <ul class="links-list">
+          {% if post.meta.links.github %}
+            <li><a href="{{ post.meta.links.github }}" target="_blank">→ GitHub</a></li>
+          {% endif %}
+          {% if post.meta.links.medium %}
+            <li><a href="{{ post.meta.links.medium }}" target="_blank">→ Medium</a></li>
+          {% endif %}
+          {% if post.meta.links.hashnode %}
+            <li><a href="{{ post.meta.links.hashnode }}" target="_blank">→ Hashnode</a></li>
+          {% endif %}
+          {% if post.meta.links.devto %}
+            <li><a href="{{ post.meta.links.devto }}" target="_blank">→ Dev.to</a></li>
+          {% endif %}
+          {% if post.meta.links.substack %}
+            <li><a href="{{ post.meta.links.substack }}" target="_blank">→ Substack</a></li>
+          {% endif %}
+          {% if post.meta.links.notion %}
+            <li><a href="{{ post.meta.links.notion }}" target="_blank">→ Notion</a></li>
+          {% endif %}
+          {% if post.meta.links.gitbook %}
+            <li><a href="{{ post.meta.links.gitbook }}" target="_blank">→ GitBook</a></li>
+          {% endif %}
+        </ul>
+      </aside>
+    {% endif %}
+  </article>
+{% endblock %}

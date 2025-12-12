@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ title if title else 'Personal DevSecOps Blog' }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+      // Dark mode toggle
+      if (localStorage.getItem('darkmode') === 'true') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <div class="header-top">
+          <h1 class="site-title"><a href="/">DevSecOps Blog</a></h1>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </div>
+        <p class="site-sub">Portfolio, learning journal and project tracker</p>
+        <nav class="site-nav">
+          <a href="/">Blog</a>
+          <a href="/resume">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© 2025 DevSecOps Portfolio • Built with Flask</p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('darkmode', 'false');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('darkmode', 'true');
+        }
+      }
+    </script>
+  </body>
+</html>

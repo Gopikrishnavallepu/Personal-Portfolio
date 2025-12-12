@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <article class="resume-page">
+    <h1>Resume / CV</h1>
+    <div class="resume-body">
+      {{ resume_html | safe }}
+    </div>
+  </article>
+{% endblock %}

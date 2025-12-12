@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="index-container">
+    <section class="filter-section">
+      <h2>Filter by Category</h2>
+      <div class="filter-tags">
+        <button class="filter-tag active" onclick="filterPosts('all')">All</button>
+        {% set categories = posts | map(attribute='meta') | map(attribute='category') | unique | list %}
+        {% for cat in categories | sort %}
+          {% if cat %}
+            <button class="filter-tag" onclick="filterPosts('{{ cat }}')">{{ cat }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="posts-list">
+      {% for post in posts %}
+        <article class="post" data-category="{{ post.meta.category or 'uncategorized' }}">
+          <div class="post-header">
+            <h2><a href="/posts/{{ post.slug }}">{{ post.title }}</a></h2>
+            <time class="date" datetime="{{ post.meta.date }}">{{ post.meta.date or 'No date' }}</time>
+          </div>
+          <div class="meta-chips">
+            {% if post.meta.category %}
+              <span class="chip category">{{ post.meta.category }}</span>
+            {% endif %}
+            {% if post.meta.focus %}
+              <span class="chip focus">{{ post.meta.focus }}</span>
+            {% endif %}
+          </div>
+          <p class="excerpt">{{ post.excerpt }}</p>
+          <div class="post-footer">
+            <a class="read-more" href="/posts/{{ post.slug }}">Read More →</a>
+          </div>
+        </article>
+      {% else %}
+        <p class="no-posts">No posts found.</p>
+      {% endfor %}
+    </section>
+  </div>
+
+  <script>
+    function filterPosts(category) {
+      const posts = document.querySelectorAll('.post');
+      const buttons = document.querySelectorAll('.filter-tag');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      posts.forEach(post => {
+        if (category === 'all' || post.dataset.category === category) {
+          post.style.display = '';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    }
+  </script>
+{% endblock %}
