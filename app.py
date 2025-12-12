@@ -1,7 +1,7 @@
 import os
 import glob
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 
 import frontmatter
 import markdown
@@ -79,7 +79,12 @@ def load_posts(include_drafts=False):
             posts.append(post)
 
     # sort by date desc (None dates at bottom)
-    posts.sort(key=lambda p: p['date'] or datetime.min, reverse=True)
+    # Create a timezone-aware version of datetime.min
+# This assumes the dates in your posts are also UTC-aware.
+    MIN_AWARE_DATETIME = datetime.min.replace(tzinfo=timezone.utc)
+
+    posts.sort(key=lambda p: p['date'] or MIN_AWARE_DATETIME, reverse=True)
+
     return posts
 
 
