@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Personal DevSecOps Blog</title>
+      <link rel="stylesheet" href="/Personal-Portfolio/static/style.css">
+    <script>
+      // Dark mode toggle
+      if (localStorage.getItem('darkmode') === 'true') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <div class="header-top">
+            <h1 class="site-title"><a href="/Personal-Portfolio/">DevSecOps Blog</a></h1>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </div>
+        <p class="site-sub">Portfolio, learning journal and project tracker</p>
+        <nav class="site-nav">
+            <a href="/Personal-Portfolio/">Blog</a>
+            <a href="/Personal-Portfolio/resume">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      
+  <article class="resume-page">
+    <h1>Resume / CV</h1>
+    <div class="resume-body">
+      <h1>DevSecOps Engineer &amp; Security Analyst</h1>
+<h2>Summary</h2>
+<p>Security-focused engineer with expertise in DevSecOps, cloud security, and secure application development. Experienced in integrating security into CI/CD pipelines and implementing automated compliance solutions.</p>
+<h2>Skills</h2>
+<h3>Security &amp; Compliance</h3>
+<ul>
+<li>Application Security (SAST/DAST)</li>
+<li>Software Composition Analysis (SCA)</li>
+<li>Container Security</li>
+<li>Infrastructure as Code Security</li>
+<li>OWASP Top 10</li>
+<li>CIS Benchmarks</li>
+<li>NIST Framework</li>
+</ul>
+<h3>DevOps &amp; Cloud</h3>
+<ul>
+<li>GitHub Actions, GitLab CI/CD</li>
+<li>Kubernetes &amp; Docker</li>
+<li>AWS, Azure</li>
+<li>Infrastructure as Code (Terraform, CloudFormation)</li>
+<li>Secrets Management</li>
+</ul>
+<h3>Tools &amp; Technologies</h3>
+<ul>
+<li>SonarQube, Snyk, OWASP ZAP</li>
+<li>Dependency-Check, Trivy</li>
+<li>Vault, AWS Secrets Manager</li>
+<li>Terraform, CloudFormation</li>
+<li>Prometheus, ELK Stack</li>
+</ul>
+<h2>Experience</h2>
+<h3>DevSecOps Engineer</h3>
+<p><strong>Current Role</strong> • 2023 - Present
+- Implemented SCA scanning in CI/CD pipelines
+- Reduced vulnerability resolution time by 40%
+- Automated compliance reporting</p>
+<h2>Education</h2>
+<ul>
+<li><strong>Security+</strong> Certified</li>
+<li><strong>Bachelor's in Computer Science</strong></li>
+</ul>
+<h2>Projects</h2>
+<ul>
+<li>Personal blog &amp; portfolio: Security learning tracker</li>
+<li>GitHub security audit automation</li>
+<li>Cloud infrastructure security baseline templates</li>
+</ul>
+<hr />
+<p><em>Last Updated: December 2025</em></p>
+    </div>
+  </article>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© 2025 DevSecOps Portfolio • Built with Flask</p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('darkmode', 'false');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('darkmode', 'true');
+        }
+      }
+    </script>
+  </body>
+</html>

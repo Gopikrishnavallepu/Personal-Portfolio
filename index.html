@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Personal DevSecOps Blog</title>
+      <link rel="stylesheet" href="/Personal-Portfolio/static/style.css">
+    <script>
+      // Dark mode toggle
+      if (localStorage.getItem('darkmode') === 'true') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <div class="header-top">
+            <h1 class="site-title"><a href="/Personal-Portfolio/">DevSecOps Blog</a></h1>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </div>
+        <p class="site-sub">Portfolio, learning journal and project tracker</p>
+        <nav class="site-nav">
+            <a href="/Personal-Portfolio/">Blog</a>
+            <a href="/Personal-Portfolio/resume">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      
+  <div class="index-container">
+    <section class="filter-section">
+      <h2>Filter by Category</h2>
+      <div class="filter-tags">
+        <button class="filter-tag active" onclick="filterPosts('all')">All</button>
+        
+        
+          
+            <button class="filter-tag" onclick="filterPosts('CloudSecurity')">CloudSecurity</button>
+          
+        
+          
+            <button class="filter-tag" onclick="filterPosts('DevSecOps')">DevSecOps</button>
+          
+        
+      </div>
+    </section>
+
+    <section class="posts-list">
+      
+        <article class="post" data-category="DevSecOps">
+          <div class="post-header">
+            <h2><a href="/posts/sample-post">Sample: Automating SCA in CI</a></h2>
+            <time class="date" datetime="2025-12-12T10:00:00+00:00">2025-12-12T10:00:00+00:00</time>
+          </div>
+          <div class="meta-chips">
+            
+              <span class="chip category">DevSecOps</span>
+            
+            
+              <span class="chip focus">SCA/Automation</span>
+            
+          </div>
+          <p class="excerpt">Automating SCA in CI — Sample Post
+
+This is a sample post to demonstrate the blog scaffold</p>
+          <div class="post-footer">
+            <a class="read-more" href="/Personal-Portfolio/posts/sample-post">Read More →</a>
+          </div>
+        </article>
+      
+        <article class="post" data-category="CloudSecurity">
+          <div class="post-header">
+            <h2><a href="/posts/container-security">Container Security Basics</a></h2>
+            <time class="date" datetime="2025-12-11T14:30:00+00:00">2025-12-11T14:30:00+00:00</time>
+          </div>
+          <div class="meta-chips">
+            
+              <span class="chip category">CloudSecurity</span>
+            
+            
+              <span class="chip focus">Docker/Container Scanning</span>
+            
+          </div>
+          <p class="excerpt">Container Security Basics
+
+Container security is critical in modern DevSecOps pipelines</p>
+          <div class="post-footer">
+            <a class="read-more" href="/Personal-Portfolio/posts/container-security">Read More →</a>
+          </div>
+        </article>
+      
+    </section>
+  </div>
+
+  <script>
+    function filterPosts(category) {
+      const buttons = document.querySelectorAll('.filter-tag');
+      const posts = document.querySelectorAll('.post');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (typeof event !== 'undefined' && event.target) event.target.classList.add('active');
+
+      posts.forEach(p => {
+        if (category === 'all' || p.dataset.category === category) {
+          p.style.display = '';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© 2025 DevSecOps Portfolio • Built with Flask</p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('darkmode', 'false');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('darkmode', 'true');
+        }
+      }
+    </script>
+  </body>
+</html>
