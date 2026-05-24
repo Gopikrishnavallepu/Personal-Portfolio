@@ -4,8 +4,8 @@ import path from 'path';
 import { getServerSession } from "next-auth/next";
 import { uploadToGitHub } from "@/lib/github";
 
-// The root of the CNAPP directory
-const ROOT_DIR = path.resolve(process.cwd(), '../../blog-posts');
+// The root of the Velse directory
+const ROOT_DIR = path.resolve(process.cwd(), '../blog-posts');
 
 export async function POST(request: NextRequest) {
   try {

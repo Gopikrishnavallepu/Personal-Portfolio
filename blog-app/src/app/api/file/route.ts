@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// The root of the CNAPP directory
-const ROOT_DIR = path.resolve(process.cwd(), '../../blog-posts');
+// The root of the Velse directory
+const ROOT_DIR = path.resolve(process.cwd(), '../blog-posts');
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
