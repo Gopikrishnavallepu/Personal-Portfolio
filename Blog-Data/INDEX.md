@@ -1,6 +1,6 @@
-﻿# Blog Directory Navigation
+﻿# VelSe Knowledge Base - Full Directory Navigation
 
-Welcome to the Blog Data Navigation Index. Use the links below to quickly access and review your files.
+Welcome to the VelSe Knowledge Base. Use the links below to quickly access and review all files.
 
 ## Cloud Security
 
@@ -14,6 +14,7 @@ Welcome to the Blog Data Navigation Index. Use the links below to quickly access
 - [Comprehensive_CNAPP_Guide.md](./Cloud_Security/Comprehensive_CNAPP_Guide.md)
 - [Falcon_CSPM_IOM_Terraform_Guide.md](./Cloud_Security/Falcon_CSPM_IOM_Terraform_Guide.md)
 - [Financial_Compliance_Frameworks.md](./Cloud_Security/Financial_Compliance_Frameworks.md)
+- [INDEX.md](./Cloud_Security/INDEX.md)
 - [KAC_and_Runtime_Detections_Guide.md](./Cloud_Security/KAC_and_Runtime_Detections_Guide.md)
 - [Answers_Section1_IAM.md](./Cloud_Security/AWS_Security_QA/Answers_Section1_IAM.md)
 - [Answers_Section2_Network_Section3_S3.md](./Cloud_Security/AWS_Security_QA/Answers_Section2_Network_Section3_S3.md)
@@ -30,6 +31,7 @@ Welcome to the Blog Data Navigation Index. Use the links below to quickly access
 
 ## Data Analytics
 
+- [INDEX.md](./Data_Analytics/INDEX.md)
 - [Excel_Data_Analysis_Complete_Tutorial.md](./Data_Analytics/Excel/Excel_Data_Analysis_Complete_Tutorial.md)
 - [Excel_Skills_Mastery_Guide.md](./Data_Analytics/Excel/Excel_Skills_Mastery_Guide.md)
 - [PowerBI_Learning_Module.md](./Data_Analytics/PowerBI/PowerBI_Learning_Module.md)
@@ -58,6 +60,7 @@ Welcome to the Blog Data Navigation Index. Use the links below to quickly access
 
 ## DevSecOps
 
+- [INDEX.md](./DevSecOps/INDEX.md)
 - [Application_Security_DevSecOps_Engineering_Interview_Guide.md](./DevSecOps/AppSec_DevSecOps/Application_Security_DevSecOps_Engineering_Interview_Guide.md)
 - [AppSec_DevSecOps_Senior_Interview_Guide.md](./DevSecOps/AppSec_DevSecOps/AppSec_DevSecOps_Senior_Interview_Guide.md)
 - [IaC_Container_CloudFindings_Interview_Guide.md](./DevSecOps/AppSec_DevSecOps/IaC_Container_CloudFindings_Interview_Guide.md)
@@ -66,6 +69,7 @@ Welcome to the Blog Data Navigation Index. Use the links below to quickly access
 ## Interview Preparation
 
 - [DIRECTORY_INDEX.md](./Interview_Preparation/DIRECTORY_INDEX.md)
+- [INDEX.md](./Interview_Preparation/INDEX.md)
 - [Interview_Prep_merged.pdf](./Interview_Preparation/Interview_Prep_merged.pdf)
 - [Cloud_Security_HR_Interview_Top20.md](./Interview_Preparation/General_Interview/Cloud_Security_HR_Interview_Top20.md)
 - [Cloud_Security_Mock_Interview.md](./Interview_Preparation/General_Interview/Cloud_Security_Mock_Interview.md)
@@ -91,10 +95,12 @@ Welcome to the Blog Data Navigation Index. Use the links below to quickly access
 ## resume
 
 - [index.html](./resume/index.html)
+- [INDEX.md](./resume/INDEX.md)
 
 ## SOC
 
 - [Comprehensive_SOC_Interview_Guide.md](./SOC/Comprehensive_SOC_Interview_Guide.md)
+- [INDEX.md](./SOC/INDEX.md)
 - [Cisco_SOC_Part1_Core_SOC_IR.md](./SOC/Cisco_SOC_Prep/Cisco_SOC_Part1_Core_SOC_IR.md)
 - [Cisco_SOC_Part2_ThreatIntel_MITRE_Hunting.md](./SOC/Cisco_SOC_Prep/Cisco_SOC_Part2_ThreatIntel_MITRE_Hunting.md)
 - [Cisco_SOC_Part3_Network_Endpoint_Tools.md](./SOC/Cisco_SOC_Prep/Cisco_SOC_Part3_Network_Endpoint_Tools.md)
