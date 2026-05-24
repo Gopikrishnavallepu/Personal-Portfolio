@@ -4,7 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 // The root of the Velse directory
-const ROOT_DIR = path.resolve(process.cwd(), '../blog-posts');
+const ROOT_DIR = path.resolve(process.cwd(), '../Blog-Data');
 
 interface FileNode {
   name: string;

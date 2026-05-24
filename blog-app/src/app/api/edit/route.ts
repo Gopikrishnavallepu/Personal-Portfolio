@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 import { uploadToGitHub } from "@/lib/github";
 
 // The root of the Velse directory
-const ROOT_DIR = path.resolve(process.cwd(), '../blog-posts');
+const ROOT_DIR = path.resolve(process.cwd(), '../Blog-Data');
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
           accessToken,
           process.env.GITHUB_OWNER,
           process.env.GITHUB_REPO,
-          `blog-posts/${filePath}`,
+          `Blog-Data/${filePath}`,
           content,
           `Update ${filePath} via Velse Editor`
         );

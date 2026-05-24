@@ -159,7 +159,7 @@ export function CreatePostModal({ isOpen, onClose, onSuccess }: CreatePostModalP
                 onChange={(e) => setFolder(e.target.value)}
                 className="w-full px-3 py-2.5 border border-zinc-300 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm cursor-pointer"
               >
-                <option value="">Root (blog-posts/)</option>
+                <option value="">Root (Blog-Data/)</option>
                 {folders.map(f => (
                   <option key={f} value={f}>{f}</option>
                 ))}
@@ -210,7 +210,7 @@ export function CreatePostModal({ isOpen, onClose, onSuccess }: CreatePostModalP
                 onChange={(e) => setFolder(e.target.value)}
                 className="w-full px-3 py-2.5 border border-zinc-300 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm cursor-pointer"
               >
-                <option value="">Root (blog-posts/)</option>
+                <option value="">Root (Blog-Data/)</option>
                 {folders.map(f => (
                   <option key={f} value={f}>{f}</option>
                 ))}

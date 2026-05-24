@@ -1,6 +1,12 @@
-# Container_K8s_Security - Combined Guide
+---
+title: "Comprehensive Container & K8s Security"
+date: "2026-05-24"
+category: "Container_K8s_Security"
+---
 
-## ECS_Container_Security_CNAPP.md
+# Comprehensive Container & K8s Security
+
+## ECS Container Security CNAPP
 
 # 🐳 ECS & Container Security in CNAPP — Complete Guide
 
@@ -403,7 +409,7 @@ CNAPP NETWORK VIEW FOR ECS:
 
 ---
 
-## EKS_K8s_Security_CNAPP.md
+## EKS K8s Security CNAPP
 
 # ☸️ EKS & Self-Managed Kubernetes Security in CNAPP — Complete Guide
 
@@ -1037,7 +1043,7 @@ WHAT'S DIFFERENT WHEN YOU SELF-MANAGE:
 
 ---
 
-## K8s_Security_Manifests_Examples.md
+## K8s Security Manifests Examples
 
 # ☸️ Kubernetes Security Manifests — PSA, PSS & KAC Examples
 

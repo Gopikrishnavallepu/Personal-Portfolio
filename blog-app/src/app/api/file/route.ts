@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 // The root of the Velse directory
-const ROOT_DIR = path.resolve(process.cwd(), '../blog-posts');
+const ROOT_DIR = path.resolve(process.cwd(), '../Blog-Data');
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
