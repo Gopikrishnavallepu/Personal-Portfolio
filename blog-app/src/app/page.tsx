@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { MarkdownViewer } from '@/components/MarkdownViewer';
 import { HomeDashboard } from '@/components/HomeDashboard';
-import { ResumeView } from '@/components/ResumeView';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UploadModal } from '@/components/UploadModal';
 import { CreatePostModal } from '@/components/CreatePostModal';
@@ -13,7 +12,7 @@ import { useSession, signIn } from 'next-auth/react';
 
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
-  const [currentTab, setCurrentTab] = useState<'blog' | 'resume'>('blog');
+  const [isScrolled, setIsScrolled] = useState(false);
   const [flatList, setFlatList] = useState<string[]>([]);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -96,19 +95,18 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-full min-w-0 transition-colors">
         {/* Site Header */}
-        <header className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 px-6 sm:px-12 py-6 flex-shrink-0 z-10">
+        <header className={`border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 px-6 sm:px-12 flex-shrink-0 z-10 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-6'}`}>
           <div className="max-w-5xl mx-auto">
             {/* Header Top Row */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <h1 
-                  className="text-2xl font-bold text-[#0a66c2] dark:text-blue-400 cursor-pointer"
+                  className={`font-bold text-[#0a66c2] dark:text-blue-400 cursor-pointer transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-2xl'}`}
                   onClick={() => {
-                    setCurrentTab('blog');
                     setSelectedFile(null);
                   }}
                 >
-                  DevSecOps Blog
+                  VelSe
                 </h1>
               </div>
 
@@ -175,51 +173,24 @@ export default function Home() {
             </div>
 
             {/* Subtitle */}
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 pl-8">
-              Portfolio, learning journal and project tracker
-            </p>
-
-            {/* Navigation links row */}
-            <nav className="flex gap-5 mt-4 pl-8 border-t border-zinc-200/60 dark:border-zinc-800/60 pt-3">
-              <button
-                onClick={() => {
-                  setCurrentTab('blog');
-                  setSelectedFile(null);
-                }}
-                className={`text-sm font-semibold transition-colors cursor-pointer ${
-                  currentTab === 'blog' && !selectedFile
-                    ? 'text-[#0a66c2] dark:text-blue-400 underline decoration-2 underline-offset-4'
-                    : 'text-zinc-500 hover:text-[#0a66c2] dark:hover:text-blue-400'
-                }`}
-              >
-                Blog
-              </button>
-              <button
-                onClick={() => {
-                  setCurrentTab('resume');
-                  setSelectedFile(null);
-                }}
-                className={`text-sm font-semibold transition-colors cursor-pointer ${
-                  currentTab === 'resume'
-                    ? 'text-[#0a66c2] dark:text-blue-400 underline decoration-2 underline-offset-4'
-                    : 'text-zinc-500 hover:text-[#0a66c2] dark:hover:text-blue-400'
-                }`}
-              >
-                Resume
-              </button>
-            </nav>
+            <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'max-h-0 opacity-0 mt-0' : 'max-h-20 opacity-100 mt-1'}`}>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 pl-8">
+                Knowledge base for DevSecOps, SOC, Cloud Security, Container Security, App Security
+              </p>
+            </div>
           </div>
         </header>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto flex flex-col h-full w-full bg-white dark:bg-zinc-950">
-          {currentTab === 'resume' ? (
-            <ResumeView />
-          ) : selectedFile ? (
+        <div 
+          className="flex-1 overflow-y-auto flex flex-col h-full w-full bg-white dark:bg-zinc-950"
+          onScroll={(e) => setIsScrolled(e.currentTarget.scrollTop > 20)}
+        >
+          {selectedFile ? (
             <div className="flex-1 overflow-hidden h-full w-full flex flex-col">
               <MarkdownViewer 
                 filePath={selectedFile} 
-                onNavigate={(file) => { setCurrentTab('blog'); setSelectedFile(file); }} 
+                onNavigate={(file) => setSelectedFile(file)} 
                 onUpdateSuccess={() => setRefreshKey(prev => prev + 1)}
                 prevFile={prevFile}
                 nextFile={nextFile}
@@ -227,7 +198,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex-1 overflow-y-auto w-full h-full">
-              <HomeDashboard onSelectFile={(file) => { setCurrentTab('blog'); setSelectedFile(file); }} refreshKey={refreshKey} />
+              <HomeDashboard onSelectFile={(file) => setSelectedFile(file)} refreshKey={refreshKey} />
             </div>
           )}
         </div>

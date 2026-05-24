@@ -133,11 +133,11 @@ export function HomeDashboard({ onSelectFile, refreshKey }: HomeDashboardProps) 
               <Network className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight">
-              DevSecOps & Cloud Security Portfolio
+              VelSe Knowledge Base
             </h1>
           </div>
           <p className="text-blue-100 text-lg max-w-2xl leading-relaxed">
-            Welcome to my central knowledge base and project portfolio. This platform serves as a living repository of my work in Cloud Security, DevSecOps, and Threat Hunting.
+            Welcome to the VelSe central knowledge base. This platform serves as a living repository for DevSecOps, SOC, Cloud Security, Container Security, and App Security.
           </p>
         </div>
         <div className="p-8 grid sm:grid-cols-3 gap-6 bg-zinc-50 dark:bg-zinc-950/50">

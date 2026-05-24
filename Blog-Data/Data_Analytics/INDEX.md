@@ -1,0 +1,30 @@
+﻿# Data Analytics
+
+Index of files in this directory:
+
+- [Excel_Data_Analysis_Complete_Tutorial.md](./Excel/Excel_Data_Analysis_Complete_Tutorial.md)
+- [Excel_Skills_Mastery_Guide.md](./Excel/Excel_Skills_Mastery_Guide.md)
+- [PowerBI_Learning_Module.md](./PowerBI/PowerBI_Learning_Module.md)
+- [BUILD_REPORT_WITH_MCP_SERVER.md](./PowerBI/PowerBI_Project/BUILD_REPORT_WITH_MCP_SERVER.md)
+- [Executive_Dashboard_Guide.md](./PowerBI/PowerBI_Project/Executive_Dashboard_Guide.md)
+- [Live_Data_Pipeline_Guide.md](./PowerBI/PowerBI_Project/Live_Data_Pipeline_Guide.md)
+- [PART_7A_EXECUTIVE_PAGE_DETAILED.md](./PowerBI/PowerBI_Project/PART_7A_EXECUTIVE_PAGE_DETAILED.md)
+- [PART_7B_OPERATIONAL_PAGE_DETAILED.md](./PowerBI/PowerBI_Project/PART_7B_OPERATIONAL_PAGE_DETAILED.md)
+- [PART_7C_RISK_ANALYSIS_PAGE_DETAILED.md](./PowerBI/PowerBI_Project/PART_7C_RISK_ANALYSIS_PAGE_DETAILED.md)
+- [PROJECT_GUIDE.md](./PowerBI/PowerBI_Project/PROJECT_GUIDE.md)
+- [Role_Validation_Workflow_Guide.md](./PowerBI/PowerBI_Project/Role_Validation_Workflow_Guide.md)
+- [cmdb_assets.csv](./PowerBI/PowerBI_Project/data/cmdb_assets.csv)
+- [cspm.pbix](./PowerBI/PowerBI_Project/data/cspm.pbix)
+- [servicenow_tickets.csv](./PowerBI/PowerBI_Project/data/servicenow_tickets.csv)
+- [wiz_findings.csv](./PowerBI/PowerBI_Project/data/wiz_findings.csv)
+- [server.py](./PowerBI/PowerBI_Project/mcp/server.py)
+- [SQL_Masterclass_Part1_Foundations.md](./SQL/SQL_Masterclass_Part1_Foundations.md)
+- [SQL_Masterclass_Part2_Intermediate.md](./SQL/SQL_Masterclass_Part2_Intermediate.md)
+- [SQL_Masterclass_Part3_Advanced.md](./SQL/SQL_Masterclass_Part3_Advanced.md)
+- [Phase1_Foundations.md](./SQL/SQL_Mastery/Phase1_Foundations.md)
+- [Phase2_Intermediate.md](./SQL/SQL_Mastery/Phase2_Intermediate.md)
+- [Phase3_Advanced.md](./SQL/SQL_Mastery/Phase3_Advanced.md)
+- [Phase4_Expert.md](./SQL/SQL_Mastery/Phase4_Expert.md)
+- [Phase5_Scenarios.md](./SQL/SQL_Mastery/Phase5_Scenarios.md)
+- [Phase6_SIEM_Project.md](./SQL/SQL_Mastery/Phase6_SIEM_Project.md)
+
