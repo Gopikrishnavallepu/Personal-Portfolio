@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { X, Upload, Loader2 } from 'lucide-react';
+import { X, Upload, Loader2, LogIn } from 'lucide-react';
+import { useSession, signIn } from 'next-auth/react';
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -13,8 +14,33 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [folder, setFolder] = useState('Cloud_Security_Guides');
+  const { data: session } = useSession();
 
   if (!isOpen) return null;
+
+  if (!session) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-xl w-full max-w-md p-6 relative border border-zinc-200 dark:border-zinc-800">
+          <button onClick={onClose} className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 cursor-pointer">
+            <X className="w-5 h-5" />
+          </button>
+          <div className="flex flex-col items-center text-center py-8">
+            <span className="text-4xl mb-4">🔒</span>
+            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Authentication Required</h3>
+            <p className="text-sm text-zinc-500 mb-6">Sign in with GitHub to upload files.</p>
+            <button
+              onClick={() => signIn('github')}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#24292F] hover:bg-[#24292F]/90 rounded-md transition-colors cursor-pointer"
+            >
+              <LogIn className="w-4 h-4" />
+              Sign in with GitHub
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +88,7 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
             <Upload className="w-8 h-8 mx-auto mb-4 text-zinc-400" />
             <input
               type="file"
-              accept=".md"
+              accept=".md,.pdf"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
               className="hidden"
               id="file-upload"

@@ -7,19 +7,24 @@ import { HomeDashboard } from '@/components/HomeDashboard';
 import { ResumeView } from '@/components/ResumeView';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UploadModal } from '@/components/UploadModal';
+import { CreatePostModal } from '@/components/CreatePostModal';
 import { SettingsModal } from '@/components/SettingsModal';
-import { Upload as UploadIcon, Download, FileText, Loader2, Menu, Settings } from 'lucide-react';
+import { Upload as UploadIcon, Download, FileText, Loader2, Menu, Settings, Plus, LogIn } from 'lucide-react';
+import { useSession, signIn } from 'next-auth/react';
 
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [currentTab, setCurrentTab] = useState<'blog' | 'resume'>('blog');
   const [flatList, setFlatList] = useState<string[]>([]);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [exportingPDF, setExportingPDF] = useState(false);
   const [downloadingMD, setDownloadingMD] = useState(false);
   const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true);
+  const { data: session } = useSession();
+  const isAdmin = !!session;
 
   let prevFile: string | null = null;
   let nextFile: string | null = null;
@@ -92,7 +97,7 @@ export default function Home() {
       {/* Sidebar */}
       <div className={`${isLeftSidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 ease-in-out flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 overflow-hidden backdrop-blur-sm z-20`}>
         <div className="w-64 h-full">
-          <Sidebar onSelectFile={(file) => { setCurrentTab('blog'); setSelectedFile(file); }} refreshKey={refreshKey} onLoaded={setFlatList} />
+          <Sidebar onSelectFile={(file) => { setCurrentTab('blog'); setSelectedFile(file); }} refreshKey={refreshKey} onLoaded={setFlatList} onRefresh={handleUploadSuccess} />
         </div>
       </div>
 
@@ -147,13 +152,32 @@ export default function Home() {
                   </>
                 )}
 
-                <button
-                  onClick={() => setIsUploadOpen(true)}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-md transition-colors cursor-pointer"
-                >
-                  <UploadIcon className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Upload Post</span>
-                </button>
+                {isAdmin ? (
+                  <>
+                    <button
+                      onClick={() => setIsCreateOpen(true)}
+                      className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 rounded-md transition-colors cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">New Post</span>
+                    </button>
+                    <button
+                      onClick={() => setIsUploadOpen(true)}
+                      className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-md transition-colors cursor-pointer"
+                    >
+                      <UploadIcon className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Upload</span>
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => signIn('github')}
+                    className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700 rounded-md transition-colors cursor-pointer"
+                  >
+                    <LogIn className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Sign In</span>
+                  </button>
+                )}
                 <button
                   onClick={() => setIsSettingsOpen(true)}
                   className="p-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer"
@@ -228,6 +252,14 @@ export default function Home() {
         isOpen={isUploadOpen} 
         onClose={() => setIsUploadOpen(false)} 
         onSuccess={handleUploadSuccess} 
+      />
+      <CreatePostModal
+        isOpen={isCreateOpen}
+        onClose={() => setIsCreateOpen(false)}
+        onSuccess={(newPath) => {
+          handleUploadSuccess();
+          setSelectedFile(newPath);
+        }}
       />
       <SettingsModal
         isOpen={isSettingsOpen}
