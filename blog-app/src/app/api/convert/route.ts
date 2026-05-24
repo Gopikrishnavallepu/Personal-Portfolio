@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { mdToPdf } from 'md-to-pdf';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 
 // The root of the Velse directory
 const ROOT_DIR = path.resolve(process.cwd(), '../blog-posts');
@@ -9,6 +11,11 @@ const PDF_DIR = path.join(ROOT_DIR, 'PDF_Exports');
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { filePath } = await request.json();
 
     if (!filePath) {

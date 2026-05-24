@@ -8,7 +8,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css'; 
-import { Loader2, X, AlignLeft, Edit3, Save } from 'lucide-react';
+import { Loader2, X, AlignLeft, Edit3, Save, Maximize } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
 interface MarkdownViewerProps {
@@ -204,10 +204,20 @@ export function MarkdownViewer({ filePath, onNavigate, onUpdateSuccess, prevFile
   if (isPdf) {
     return (
       <div className="flex flex-col h-full w-full">
-        <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex-shrink-0">
+        <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex-shrink-0 flex items-center justify-between">
           <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
             {metadata.title}
           </h1>
+          <a
+            href={`/api/file?path=${encodeURIComponent(filePath)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
+            title="Open Fullscreen"
+          >
+            <Maximize className="w-4 h-4" />
+            <span className="hidden sm:inline">Fullscreen</span>
+          </a>
         </div>
         <div className="flex-1 w-full bg-zinc-100 dark:bg-zinc-900">
           <iframe 

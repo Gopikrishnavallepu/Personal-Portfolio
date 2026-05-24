@@ -129,7 +129,7 @@ export default function Home() {
 
               {/* Action Buttons & Theme */}
               <div className="flex items-center gap-2 sm:gap-3">
-                {selectedFile && selectedFile.endsWith('.md') && (
+                {isAdmin && selectedFile && selectedFile.endsWith('.md') && (
                   <>
                     <button
                       onClick={handleDownloadMD}
