@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { deleteFromGitHub } from "@/lib/github";
 
 // The root of the Velse directory
 const ROOT_DIR = path.resolve(process.cwd(), '../Blog-Data');
@@ -21,17 +22,34 @@ export async function POST(request: NextRequest) {
     }
 
 
-
     const fullPath = path.join(ROOT_DIR, filePath);
     if (!fullPath.startsWith(ROOT_DIR)) {
       return NextResponse.json({ error: 'Invalid path' }, { status: 403 });
     }
 
-    if (!fs.existsSync(fullPath)) {
-      return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    try {
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    } catch (fsError) {
+      console.warn("Local file system delete failed (expected in production):", fsError);
     }
 
-    fs.unlinkSync(fullPath);
+    // Try deleting from GitHub if configured
+    const accessToken = (session as any).accessToken;
+    if (accessToken && process.env.GITHUB_OWNER && process.env.GITHUB_REPO) {
+      try {
+        await deleteFromGitHub(
+          accessToken,
+          process.env.GITHUB_OWNER,
+          process.env.GITHUB_REPO,
+          `Blog-Data/${filePath}`,
+          `Delete ${filePath} via Velse Editor`
+        );
+      } catch (err) {
+        console.error("Failed to delete from GitHub, but processed locally:", err);
+      }
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

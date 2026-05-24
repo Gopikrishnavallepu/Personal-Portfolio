@@ -31,17 +31,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid folder path' }, { status: 403 });
     }
 
-    // Create directory if it doesn't exist
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
-    }
-
     const fullPath = path.join(targetDir, safeName);
-
-    // Don't overwrite existing files
-    if (fs.existsSync(fullPath)) {
-      return NextResponse.json({ error: 'File already exists' }, { status: 409 });
-    }
 
     // Default content with front-matter
     const defaultContent = content || `---
@@ -56,7 +46,22 @@ focus: "Guide"
 Start writing your content here...
 `;
 
-    fs.writeFileSync(fullPath, defaultContent);
+    // Try local fs operations, but don't fail if in a read-only environment like Vercel
+    try {
+      // Create directory if it doesn't exist
+      if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
+      }
+
+      // Don't overwrite existing files locally
+      if (fs.existsSync(fullPath)) {
+        return NextResponse.json({ error: 'File already exists locally' }, { status: 409 });
+      }
+
+      fs.writeFileSync(fullPath, defaultContent);
+    } catch (fsError) {
+      console.warn("Local file system write failed (expected in production):", fsError);
+    }
 
     // Build relative path for the response
     const relativePath = path.relative(ROOT_DIR, fullPath).replace(/\\/g, '/');

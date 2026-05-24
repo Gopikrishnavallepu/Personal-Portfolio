@@ -27,7 +27,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
     }
 
-    fs.writeFileSync(fullPath, content);
+    try {
+      fs.writeFileSync(fullPath, content);
+    } catch (fsError) {
+      console.warn("Local file system write failed (expected in production):", fsError);
+    }
 
     // Try uploading to GitHub if configured
     const accessToken = (session as any).accessToken;
