@@ -30,7 +30,7 @@ GITHUB_SECRET=your_github_oauth_app_client_secret
 
 # NextAuth Secret
 NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=a8f8d67290eb4ea6bfb0cd3f972b21c4b8e21727
+NEXTAUTH_SECRET=b9672100f0694b01af6a18fc9f8009317ecbba184d01142a6855c2d5eac829c2
 
 # GitHub Repository details
 GITHUB_OWNER=Gopikrishnavallepu
