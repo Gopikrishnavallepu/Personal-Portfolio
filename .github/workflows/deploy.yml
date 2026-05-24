@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd blog-app
-          npm ci
+          npm install
 
       - name: Build local validation
         run: |
