@@ -76,13 +76,7 @@ export function HomeDashboard({ onSelectFile, refreshKey }: HomeDashboardProps) 
   const [tree, setTree] = useState<FileNode[]>([]);
   const [posts, setPosts] = useState<PostItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [indexContent, setIndexContent] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  
-  // Edit mode state
-  const [isEditing, setIsEditing] = useState(false);
-  const [editContent, setEditContent] = useState('');
-  const [saving, setSaving] = useState(false);
   const { data: session } = useSession();
   const isAdmin = !!session;
 
@@ -98,42 +92,7 @@ export function HomeDashboard({ onSelectFile, refreshKey }: HomeDashboardProps) 
         console.error('Failed to load file tree', err);
         setLoading(false);
       });
-
-    fetch(`/api/file?path=INDEX.md&t=${Date.now()}`)
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error('INDEX.md not found');
-      })
-      .then(data => {
-        setIndexContent(data.content);
-        setEditContent(data.content);
-      })
-      .catch(() => setIndexContent(null));
   }, [refreshKey]);
-
-  const handleSave = async () => {
-    setSaving(true);
-    
-    try {
-      const res = await fetch('/api/edit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filePath: 'INDEX.md', content: editContent })
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to save');
-
-      setIndexContent(editContent);
-      setIsEditing(false);
-      alert('INDEX.md saved successfully!');
-    } catch (err: any) {
-      console.error(err);
-      alert(`Save failed: ${err.message}`);
-    } finally {
-      setSaving(false);
-    }
-  };
 
   const LinkRenderer = (props: any) => {
     const { href, children, ...rest } = props;
@@ -166,75 +125,59 @@ export function HomeDashboard({ onSelectFile, refreshKey }: HomeDashboardProps) 
 
   return (
     <div className="max-w-5xl mx-auto py-12 px-6 sm:px-12 w-full">
-      {/* INDEX.md Welcome Banner */}
-      {indexContent !== null && (
-        <div className="mb-12 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm relative">
-          {isAdmin && (
-            <div className="absolute top-4 right-4 z-10 flex gap-2">
-              {!isEditing ? (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="px-3 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer"
-                >
-                  Edit Index
-                </button>
-              ) : (
-                <>
-                  <button
-                    onClick={() => {
-                      setIsEditing(false);
-                      setEditContent(indexContent || '');
-                    }}
-                    className="px-3 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleSave}
-                    disabled={saving}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors disabled:opacity-50 cursor-pointer"
-                  >
-                    {saving ? 'Saving...' : 'Save'}
-                  </button>
-                </>
-              )}
+      {/* Welcome Banner */}
+      <div className="mb-12 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-10 text-white">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
+              <Network className="w-8 h-8 text-white" />
             </div>
-          )}
-          
-          <div className="p-8">
-            {isEditing ? (
-              <textarea
-                value={editContent}
-                onChange={(e) => setEditContent(e.target.value)}
-                className="w-full min-h-[300px] p-4 font-mono text-sm bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
-              />
-            ) : (
-              <article className="prose prose-zinc dark:prose-invert max-w-none prose-a:text-blue-600 dark:prose-a:text-blue-400">
-                <ReactMarkdown 
-                  remarkPlugins={[remarkGfm]}
-                  components={{ a: LinkRenderer }}
-                >
-                  {indexContent}
-                </ReactMarkdown>
-              </article>
-            )}
+            <h1 className="text-3xl font-extrabold tracking-tight">
+              DevSecOps & Cloud Security Portfolio
+            </h1>
           </div>
-        </div>
-      )}
-
-      {indexContent === null && (
-        <div className="flex flex-col items-center justify-center text-center mb-12">
-          <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-full mb-6">
-            <Network className="w-12 h-12 text-blue-600 dark:text-blue-400" />
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4">
-            Velse Platform
-          </h1>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl">
-            Explore research notes, detailed playbooks, security guides, and project audit files.
+          <p className="text-blue-100 text-lg max-w-2xl leading-relaxed">
+            Welcome to my central knowledge base and project portfolio. This platform serves as a living repository of my work in Cloud Security, DevSecOps, and Threat Hunting.
           </p>
         </div>
-      )}
+        <div className="p-8 grid sm:grid-cols-3 gap-6 bg-zinc-50 dark:bg-zinc-950/50">
+          <div>
+            <h3 className="font-bold text-zinc-900 dark:text-zinc-100 mb-2 flex items-center gap-2">
+              <span>☁️</span> Cloud Security
+            </h3>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Comprehensive security playbooks, CNAPP architecture notes, and IAM best practices for AWS.</p>
+          </div>
+          <div>
+            <h3 className="font-bold text-zinc-900 dark:text-zinc-100 mb-2 flex items-center gap-2">
+              <span>🐳</span> Container & K8s
+            </h3>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Deep dives into securing EKS, ECS, Docker hardening, and mitigating MITRE ATT&CK scenarios.</p>
+          </div>
+          <div>
+            <h3 className="font-bold text-zinc-900 dark:text-zinc-100 mb-2 flex items-center gap-2">
+              <span>🎯</span> Interview Prep
+            </h3>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Consolidated question banks, cheat sheets, and architecture challenges for DevSecOps roles.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Directory Browser - Moved to Top */}
+      <div className="mb-12 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 overflow-hidden">
+        <h2 className="text-xl font-bold mb-4 text-zinc-800 dark:text-zinc-200 flex items-center border-b border-zinc-200 dark:border-zinc-800 pb-4">
+          <Folder className="w-6 h-6 mr-3 text-blue-500" />
+          Workspace Directory
+        </h2>
+        <div className="overflow-y-auto max-h-[40vh] pr-4 scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800">
+          {loading ? (
+            <div className="flex items-center justify-center h-40 text-zinc-500 animate-pulse">Scanning directories...</div>
+          ) : (
+            tree.map((node, idx) => (
+              <DashboardTreeNode key={idx} node={node} onSelectFile={onSelectFile} />
+            ))
+          )}
+        </div>
+      </div>
 
       {/* Category Filter Tags */}
       <section className="mb-10 border-b border-zinc-200 dark:border-zinc-800 pb-6">
@@ -306,22 +249,6 @@ export function HomeDashboard({ onSelectFile, refreshKey }: HomeDashboardProps) 
         )}
       </section>
 
-      {/* Directory Browser at the Bottom */}
-      <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 overflow-hidden">
-        <h2 className="text-xl font-bold mb-4 text-zinc-800 dark:text-zinc-200 flex items-center border-b border-zinc-200 dark:border-zinc-800 pb-4">
-          <Folder className="w-6 h-6 mr-3 text-zinc-400" />
-          Workspace Root Directory
-        </h2>
-        <div className="overflow-y-auto max-h-[60vh] pr-4 scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800">
-          {loading ? (
-            <div className="flex items-center justify-center h-40 text-zinc-500 animate-pulse">Scanning directories...</div>
-          ) : (
-            tree.map((node, idx) => (
-              <DashboardTreeNode key={idx} node={node} onSelectFile={onSelectFile} />
-            ))
-          )}
-        </div>
-      </div>
     </div>
   );
 }

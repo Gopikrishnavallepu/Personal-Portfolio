@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Sidebar } from '@/components/Sidebar';
 import { MarkdownViewer } from '@/components/MarkdownViewer';
 import { HomeDashboard } from '@/components/HomeDashboard';
 import { ResumeView } from '@/components/ResumeView';
@@ -9,7 +8,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { UploadModal } from '@/components/UploadModal';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { SettingsModal } from '@/components/SettingsModal';
-import { Upload as UploadIcon, Download, FileText, Loader2, Menu, Settings, Plus, LogIn } from 'lucide-react';
+import { Upload as UploadIcon, Download, FileText, Loader2, Settings, Plus, LogIn } from 'lucide-react';
 import { useSession, signIn } from 'next-auth/react';
 
 export default function Home() {
@@ -22,7 +21,6 @@ export default function Home() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [exportingPDF, setExportingPDF] = useState(false);
   const [downloadingMD, setDownloadingMD] = useState(false);
-  const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true);
   const { data: session } = useSession();
   const isAdmin = !!session;
 
@@ -94,12 +92,6 @@ export default function Home() {
   
   return (
     <div className="flex h-screen overflow-hidden w-full bg-white dark:bg-zinc-950">
-      {/* Sidebar */}
-      <div className={`${isLeftSidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 ease-in-out flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 overflow-hidden backdrop-blur-sm z-20`}>
-        <div className="w-64 h-full">
-          <Sidebar onSelectFile={(file) => { setCurrentTab('blog'); setSelectedFile(file); }} refreshKey={refreshKey} onLoaded={setFlatList} onRefresh={handleUploadSuccess} />
-        </div>
-      </div>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-full min-w-0 transition-colors">
@@ -109,13 +101,6 @@ export default function Home() {
             {/* Header Top Row */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => setIsLeftSidebarOpen(!isLeftSidebarOpen)}
-                  className="p-1.5 -ml-1 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer"
-                  title="Toggle Directory Sidebar"
-                >
-                  <Menu className="w-5 h-5" />
-                </button>
                 <h1 
                   className="text-2xl font-bold text-[#0a66c2] dark:text-blue-400 cursor-pointer"
                   onClick={() => {
