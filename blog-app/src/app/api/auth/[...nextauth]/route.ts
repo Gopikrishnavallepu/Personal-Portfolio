@@ -8,6 +8,7 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_SECRET || "",
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
       // Add the user's access token to the session to use Octokit
