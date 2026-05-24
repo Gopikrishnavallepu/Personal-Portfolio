@@ -1,0 +1,39 @@
+name: Velse Blog CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: './Blog-Data/blog-app/package-lock.json'
+
+    - name: Install dependencies
+      run: |
+        cd Blog-Data/blog-app
+        npm ci
+
+    - name: Build Next.js app
+      run: |
+        cd Blog-Data/blog-app
+        npm run build
+      env:
+        NEXTAUTH_URL: http://localhost:3000
+        NEXTAUTH_SECRET: a8f8d67290eb4ea6bfb0cd3f972b21c4b8e21727
+        GITHUB_OWNER: Gopikrishnavallepu
+        GITHUB_REPO: Personal-Portfolio
+        GITHUB_ID: mock-id
+        GITHUB_SECRET: mock-secret

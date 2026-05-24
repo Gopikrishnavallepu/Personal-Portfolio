@@ -1,0 +1,188 @@
+"use client";
+
+import React, { useState } from 'react';
+import { Sidebar } from '@/components/Sidebar';
+import { MarkdownViewer } from '@/components/MarkdownViewer';
+import { HomeDashboard } from '@/components/HomeDashboard';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { UploadModal } from '@/components/UploadModal';
+import { SettingsModal } from '@/components/SettingsModal';
+import { Upload as UploadIcon, Download, FileText, Loader2, Menu, Settings } from 'lucide-react';
+
+export default function Home() {
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [flatList, setFlatList] = useState<string[]>([]);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [exportingPDF, setExportingPDF] = useState(false);
+  const [downloadingMD, setDownloadingMD] = useState(false);
+  const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true);
+
+  let prevFile: string | null = null;
+  let nextFile: string | null = null;
+  if (selectedFile) {
+    const currentIndex = flatList.indexOf(selectedFile);
+    if (currentIndex > 0) prevFile = flatList[currentIndex - 1];
+    if (currentIndex !== -1 && currentIndex < flatList.length - 1) nextFile = flatList[currentIndex + 1];
+  }
+
+  const handleUploadSuccess = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
+  const handleExportPDF = async () => {
+    if (!selectedFile || !selectedFile.endsWith('.md')) return;
+    setExportingPDF(true);
+    try {
+      const res = await fetch('/api/convert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filePath: selectedFile })
+      });
+
+      if (!res.ok) throw new Error('Export failed');
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = selectedFile.split('/').pop()?.replace('.md', '.pdf') || 'export.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to export PDF');
+    } finally {
+      setExportingPDF(false);
+    }
+  };
+
+  const handleDownloadMD = async () => {
+    if (!selectedFile || !selectedFile.endsWith('.md')) return;
+    setDownloadingMD(true);
+    try {
+      const res = await fetch(`/api/file?path=${encodeURIComponent(selectedFile)}`);
+      if (!res.ok) throw new Error('Download failed');
+      const data = await res.json();
+      
+      const blob = new Blob([data.content], { type: 'text/markdown' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = selectedFile.split('/').pop() || 'file.md';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to download MD file');
+    } finally {
+      setDownloadingMD(false);
+    }
+  };
+  
+  return (
+    <div className="flex h-screen overflow-hidden w-full bg-white dark:bg-zinc-950">
+      {/* Sidebar */}
+      <div className={`${isLeftSidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 ease-in-out flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 overflow-hidden backdrop-blur-sm z-20`}>
+        <div className="w-64 h-full">
+          <Sidebar onSelectFile={setSelectedFile} refreshKey={refreshKey} onLoaded={setFlatList} />
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col h-full min-w-0 transition-colors">
+        {/* Top Header */}
+        <header className="h-16 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 sm:px-6 flex-shrink-0 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md z-10">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setIsLeftSidebarOpen(!isLeftSidebarOpen)}
+              className="p-2 -ml-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              title="Toggle Directory Sidebar"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <h1 
+              className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent cursor-pointer hidden sm:block"
+              onClick={() => setSelectedFile(null)}
+            >
+              Velse
+            </h1>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {selectedFile && selectedFile.endsWith('.md') && (
+              <>
+                <button
+                  onClick={handleDownloadMD}
+                  disabled={downloadingMD}
+                  title="Download MD File"
+                  className="flex items-center gap-2 px-2 py-1.5 sm:px-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors disabled:opacity-50 border border-zinc-200 dark:border-zinc-700"
+                >
+                  {downloadingMD ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4 text-green-600 dark:text-green-400" />}
+                  <span className="hidden lg:inline">MD File</span>
+                </button>
+                <button
+                  onClick={handleExportPDF}
+                  disabled={exportingPDF}
+                  title="Export to PDF"
+                  className="flex items-center gap-2 px-2 py-1.5 sm:px-3 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors disabled:opacity-50 border border-zinc-200 dark:border-zinc-700"
+                >
+                  {exportingPDF ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+                  <span className="hidden lg:inline">Export PDF</span>
+                </button>
+                <div className="hidden sm:block w-px h-6 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
+              </>
+            )}
+
+            <button
+              onClick={() => setIsUploadOpen(true)}
+              className="flex items-center gap-2 px-2 py-1.5 sm:px-3 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-md transition-colors"
+            >
+              <UploadIcon className="w-4 h-4" />
+              <span className="hidden sm:inline">Upload Post</span>
+            </button>
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              title="Settings"
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+            <ThemeToggle />
+          </div>
+        </header>
+
+        {/* Content Area */}
+        <div className="flex-1 overflow-hidden flex flex-col h-full w-full">
+          {selectedFile ? (
+            <MarkdownViewer 
+              filePath={selectedFile} 
+              onNavigate={setSelectedFile} 
+              onUpdateSuccess={() => setRefreshKey(prev => prev + 1)}
+              prevFile={prevFile}
+              nextFile={nextFile}
+            />
+          ) : (
+            <div className="flex-1 overflow-y-auto w-full h-full">
+              <HomeDashboard onSelectFile={setSelectedFile} refreshKey={refreshKey} />
+            </div>
+          )}
+        </div>
+      </main>
+
+      <UploadModal 
+        isOpen={isUploadOpen} 
+        onClose={() => setIsUploadOpen(false)} 
+        onSuccess={handleUploadSuccess} 
+      />
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
+    </div>
+  );
+}

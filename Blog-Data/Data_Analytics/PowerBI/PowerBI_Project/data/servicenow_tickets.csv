@@ -1,0 +1,51 @@
+ticket_id,finding_id,short_description,priority,status,assignment_group,assigned_to,created_date,resolved_date,sla_target_date,sla_status,resolution_notes,change_request_id
+SNOW-001,WIZ-001,[CRITICAL] S3 Bucket Public Access Enabled,P1,Open,Platform-Engineering,Rajesh Kumar,2025-01-05,,,Breached,, 
+SNOW-002,WIZ-002,[CRITICAL] NSG Allows SSH from 0.0.0.0/0,P1,Open,Network-Operations,Amit Patel,2025-01-08,,,Breached,,
+SNOW-003,WIZ-003,[HIGH] VM Missing Endpoint Protection,P2,Open,AppDev-Team,Sarah Johnson,2025-01-10,,,Breached,,
+SNOW-004,WIZ-004,[HIGH] Key Vault Soft Delete Disabled,P2,Open,Platform-Engineering,Rajesh Kumar,2025-01-12,,,Breached,,
+SNOW-005,WIZ-005,[HIGH] SQL Database TDE Disabled,P2,Closed,Data-Engineering,Lisa Wang,2025-01-03,2025-01-06,2025-01-10,Met,Enabled TDE encryption on SQL database,CHG-001
+SNOW-006,WIZ-006,[MEDIUM] GCS Bucket Uniform Access Disabled,P3,Open,Data-Engineering,Ananya Gupta,2025-01-15,,,On Track,,
+SNOW-007,WIZ-007,[CRITICAL] Firewall Rule Open to All - RDP,P1,Closed,Network-Operations,Amit Patel,2025-01-02,2025-01-03,2025-01-03,Met,Removed overly permissive firewall rule,CHG-002
+SNOW-008,WIZ-008,[HIGH] Service Account Key Not Rotated,P2,Open,Data-Engineering,James Lee,2025-01-18,,,Breached,,
+SNOW-009,WIZ-009,[CRITICAL] Entra ID MFA Not Enforced,P1,Open,Identity-Security,Priya Sharma,2025-01-20,,,Breached,,
+SNOW-010,WIZ-010,[HIGH] Storage Account HTTP Access,P2,Open,AppDev-Team,Sarah Johnson,2025-01-22,,,Breached,,
+SNOW-011,WIZ-011,[HIGH] VM Disk Encryption Disabled,P2,Closed,Platform-Engineering,Rajesh Kumar,2025-01-08,2025-01-14,2025-01-15,Met,Enabled disk encryption with CMK,CHG-003
+SNOW-012,WIZ-012,[CRITICAL] GKE Legacy ABAC Enabled,P1,Open,Container-Platform,Kevin Zhang,2025-01-25,,,Breached,,
+SNOW-013,WIZ-013,[CRITICAL] Blob Container Anonymous Access,P1,Closed,AppDev-Team,Neha Verma,2024-12-28,2024-12-29,2024-12-29,Met,Disabled anonymous access,CHG-004
+SNOW-014,WIZ-014,[HIGH] AKS Pod Running as Root,P2,Open,Container-Platform,Kevin Zhang,2025-01-28,,,Breached,,
+SNOW-015,WIZ-015,[MEDIUM] IAM User with Inactive Keys,P3,Open,Data-Engineering,Ananya Gupta,2025-01-30,,,On Track,,
+SNOW-016,WIZ-016,[CRITICAL] NSG Allows All Inbound,P1,Open,Network-Operations,Amit Patel,2025-02-01,,,Breached,,
+SNOW-017,WIZ-017,[MEDIUM] SQL Server Auditing Disabled,P3,Open,Data-Engineering,Lisa Wang,2025-02-03,,,On Track,,
+SNOW-018,WIZ-018,[CRITICAL] GCS Bucket Public allUsers,P1,Closed,AppDev-Team,Neha Verma,2025-01-15,2025-01-16,2025-01-16,Met,Removed allUsers access,CHG-005
+SNOW-019,WIZ-019,[HIGH] Conditional Access Policy Missing,P2,Open,Identity-Security,Priya Sharma,2025-02-05,,,At Risk,,
+SNOW-020,WIZ-020,[HIGH] VM Public IP Direct Exposure,P2,Closed,Network-Operations,Amit Patel,2025-01-20,2025-01-25,2025-01-27,Met,Moved behind load balancer removed public IP,CHG-006
+SNOW-021,WIZ-021,[MEDIUM] Cloud KMS Key Rotation Disabled,P3,Open,Data-Engineering,James Lee,2025-02-08,,,On Track,,
+SNOW-022,WIZ-022,[MEDIUM] NSG Flow Logs Disabled,P3,Open,AppDev-Team,Sarah Johnson,2025-02-10,,,On Track,,
+SNOW-023,WIZ-023,[CRITICAL] SA with Owner Role,P1,Open,Container-Platform,Kevin Zhang,2025-02-12,,,At Risk,,
+SNOW-024,WIZ-024,[CRITICAL] AKS Privileged Container,P1,Open,Container-Platform,Kevin Zhang,2025-02-14,,,At Risk,,
+SNOW-025,WIZ-025,[HIGH] Storage No Private Endpoint,P2,Open,Data-Engineering,Lisa Wang,2025-02-15,,,At Risk,,
+SNOW-026,WIZ-026,[MEDIUM] VPC Flow Logs Disabled,P3,Open,Network-Operations,Amit Patel,2025-02-17,,,On Track,,
+SNOW-027,WIZ-027,[HIGH] Guest Users Privileged Role,P2,Closed,Identity-Security,Priya Sharma,2025-02-01,2025-02-05,2025-02-08,Met,Removed guest from privileged role,CHG-007
+SNOW-028,WIZ-028,[HIGH] Default VPC Network in Use,P2,Open,Data-Engineering,Ananya Gupta,2025-02-19,,,At Risk,,
+SNOW-029,WIZ-029,[MEDIUM] App Registration Secret Expired,P3,Open,Data-Engineering,Lisa Wang,2025-02-20,,,On Track,,
+SNOW-030,WIZ-030,[HIGH] GKE Pod Running as Root,P2,Open,Container-Platform,Kevin Zhang,2025-02-22,,,At Risk,,
+SNOW-031,WIZ-031,[MEDIUM] SQL No Private Endpoint,P3,Closed,Platform-Engineering,Rajesh Kumar,2025-02-10,2025-02-28,2025-03-12,Met,Added private endpoint to SQL,CHG-008
+SNOW-032,WIZ-032,[LOW] Firewall Allows All Egress,P4,Open,Network-Operations,Amit Patel,2025-02-25,,,On Track,,
+SNOW-033,WIZ-033,[MEDIUM] VM No OS Login Configured,P3,Open,Network-Operations,Amit Patel,2025-02-27,,,On Track,,
+SNOW-034,WIZ-034,[HIGH] Key Vault Access Too Broad,P2,Open,Platform-Engineering,Rajesh Kumar,2025-03-01,,,On Track,,
+SNOW-035,WIZ-035,[MEDIUM] Container Registry Admin Enabled,P3,Open,Container-Platform,Kevin Zhang,2025-03-03,,,On Track,,
+SNOW-036,WIZ-036,[LOW] DNS Logging Disabled,P4,Open,Data-Engineering,James Lee,2025-03-05,,,On Track,,
+SNOW-037,WIZ-037,[HIGH] SA Domain-Wide Delegation,P2,Open,Data-Engineering,Ananya Gupta,2025-03-07,,,On Track,,
+SNOW-038,WIZ-038,[HIGH] Managed Disk Unencrypted,P2,Closed,Platform-Engineering,Rajesh Kumar,2025-02-15,2025-02-22,2025-02-22,Met,Encrypted disk with platform-managed keys,CHG-009
+SNOW-039,WIZ-039,[LOW] GCS Bucket No Versioning,P4,Open,Data-Engineering,James Lee,2025-03-10,,,On Track,,
+SNOW-040,WIZ-040,[CRITICAL] NSG Allows MySQL from Any,P1,Open,AppDev-Team,Sarah Johnson,2025-03-12,,,At Risk,,
+SNOW-041,WIZ-041,[CRITICAL] Custom Role Wildcard Perms,P1,Closed,Identity-Security,Priya Sharma,2025-02-20,2025-02-22,2025-02-21,Met,Replaced wildcard with scoped permissions,CHG-010
+SNOW-042,WIZ-042,[HIGH] AKS hostNetwork Enabled,P2,Open,Container-Platform,Kevin Zhang,2025-03-14,,,On Track,,
+SNOW-043,WIZ-043,[MEDIUM] GKE Network Policy Not Enforced,P3,Open,Container-Platform,Kevin Zhang,2025-03-15,,,On Track,,
+SNOW-044,WIZ-044,[HIGH] Storage Shared Key Access,P2,Open,Platform-Engineering,Rajesh Kumar,2025-03-16,,,On Track,,
+SNOW-045,WIZ-045,[MEDIUM] Org Policy Public IP,P3,Open,Network-Operations,Amit Patel,2025-03-17,,,On Track,,
+SNOW-046,WIZ-046,[HIGH] PIM Not Enabled,P2,Closed,Identity-Security,Priya Sharma,2025-03-01,2025-03-10,2025-03-08,Missed,Enabled PIM for all admin roles - missed SLA by 2 days,CHG-011
+SNOW-047,WIZ-047,[MEDIUM] GKE Binary Auth Disabled,P3,Open,Container-Platform,Kevin Zhang,2025-03-18,,,On Track,,
+SNOW-048,WIZ-048,[HIGH] Break-Glass Account Missing,P2,Open,Identity-Security,Priya Sharma,2025-03-19,,,On Track,,
+SNOW-049,WIZ-049,[MEDIUM] Workload Identity Not Enabled,P3,Open,Container-Platform,Kevin Zhang,2025-03-20,,,On Track,,
+SNOW-050,WIZ-050,[LOW] Soft Delete Not Enabled,P4,Open,Platform-Engineering,Rajesh Kumar,2025-03-20,,,On Track,,
